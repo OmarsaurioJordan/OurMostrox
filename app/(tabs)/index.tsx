@@ -1,0 +1,57 @@
+import { useRouter } from "expo-router";
+import { useState } from "react";
+import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
+import AppLayout from "../../components/AppLayout";
+import { styles } from "../../data/styles";
+
+export default function Home() {
+  const [apiKeyTxt, setApiKeyTxt] = useState("");
+  const [apiKeyImg, setApiKeyImg] = useState("");
+  const router = useRouter();
+
+  return (
+    <AppLayout title="" showBack={false}>
+      <View style={styles.mainContent}>
+
+        {/* titulo e imagen */}
+        <Text style={styles.mainTitle}>Our Mostrox</Text>
+        <Image
+          source={require("../../assets/images/monsters.png")}
+          style={styles.mainImage}
+        />
+
+        {/* input texto IA */}
+        <Text style={styles.inputLabel}>API key de Mistral AI</Text>
+        <TextInput
+          style = {styles.inputTxt}
+          value = {apiKeyTxt}
+          onChangeText = {setApiKeyTxt}
+          placeholder = "digita la API key aquí"
+          placeholderTextColor="#c42727ff"
+        />
+
+        {/* input imagen IA */}
+        <Text style={styles.inputLabel}>API key de StableDifusion AI</Text>
+        <TextInput
+          style = {styles.inputTxt}
+          value = {apiKeyImg}
+          onChangeText = {setApiKeyImg}
+          placeholder = "digita la API key aquí"
+          placeholderTextColor="#c42727ff"
+        />
+
+        {/* boton galeria */}
+        <TouchableOpacity
+          style={styles.btnAccion}
+          onPress={() => router.push("/Gallery")}
+        >
+          <Text style={styles.btnText}>Ver Galería</Text>
+        </TouchableOpacity>
+
+        {/* creditos */}
+        <Text style={styles.credits}>by Omwekiatl 2025</Text>
+
+      </View>
+    </AppLayout>
+  );
+}
