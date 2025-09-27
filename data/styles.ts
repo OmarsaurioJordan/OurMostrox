@@ -65,6 +65,8 @@ export const styles = StyleSheet.create({
         fontSize: 20
     },
     monsterCard: {
+        flex: 1,
+        margin: 8,
         backgroundColor: "#723f21ff",
         borderRadius: 12,
         padding: 12,
@@ -72,14 +74,17 @@ export const styles = StyleSheet.create({
     },
     monsterImage: {
         width: 120,
-        height: 120,
+        height: 4/5,
         borderRadius: 8,
         marginBottom: 8
     },
     monsterTitle: {
         color: "#fff",
         fontSize: 20,
-        fontWeight: "bold"
+        fontWeight: "bold",
+        textAlign: "center",
+        marginTop: 6,
+        flexWrap: "wrap"
     },
     monsterList: {
         gap: 12
@@ -170,5 +175,31 @@ export const styles = StyleSheet.create({
         marginBottom: 6,
         resizeMode: "contain",
         alignSelf: "center"
+    },
+    bigImageMonster: {
+        width: "90%",
+        height: 300,
+        resizeMode: "cover",
+        marginBottom: 20,
+        borderRadius: 32
+    },
+    description: {
+        fontSize: 16,
+        color: "#fff",
+        textAlign: "center"
+    },
+    twoLabels: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        marginTop: 16
+    },
+    oneLabels: {
+        flex: 1,
+        marginRight: 8
+    },
+    miniText: {
+        fontSize: 10,
+        color: "#fff",
+        textAlign: "center"
     }
 })

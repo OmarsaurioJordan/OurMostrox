@@ -14,7 +14,6 @@ npx expo start
 
 Tareas:
 
-- guardo permanente de las API keys ingresadas, incluyendo las por defecto
 - visualización completa de ficha de monstruo en galería, imágen por defecto
 - visualización completa del monstruo, con imágen por defecto y descripción
 - visualización del monstruo incluye código Qr para retadores

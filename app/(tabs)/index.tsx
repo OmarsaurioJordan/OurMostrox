@@ -1,13 +1,29 @@
 import { useRouter } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 import AppLayout from "../../components/AppLayout";
+import { loadApiKeys, saveApiKeys } from "../../data/api_keys";
 import { styles } from "../../data/styles";
 
 export default function Home() {
   const [apiKeyTxt, setApiKeyTxt] = useState("");
   const [apiKeyImg, setApiKeyImg] = useState("");
   const router = useRouter();
+
+  useEffect(() => {
+    const init = async () => {
+      const keys = await loadApiKeys();
+      if (keys) {
+        setApiKeyTxt(keys.apiKeyTxt);
+        setApiKeyImg(keys.apiKeyImg);
+      }
+    };
+    init();
+  }, []);
+
+  useEffect(() => {
+    saveApiKeys({ apiKeyTxt, apiKeyImg });
+  }, [apiKeyTxt, apiKeyImg]);
 
   return (
     <AppLayout title="" showBack={false}>

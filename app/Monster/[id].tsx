@@ -1,93 +1,82 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { router, useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
+import AppLayout from "../../components/AppLayout";
 import { Monster } from "../../data/Monster";
+import { getMonsterById, getMonsterImagePath } from "../../data/monster_service";
+import { styles } from "../../data/styles";
 
 export default function MonsterDetail() {
-  const { id } = useLocalSearchParams(); // ← obtiene el ID de la ruta
+  const { id } = useLocalSearchParams();
+  const router = useRouter();
   const [monster, setMonster] = useState<Monster | null>(null);
+  const [imgPath, setImgPath] = useState<string | null>(null);
 
   useEffect(() => {
-    const loadMonster = async () => {
-      try {
-        const stored = await AsyncStorage.getItem("monsters");
-        if (stored) {
-          const monsters: Monster[] = JSON.parse(stored);
-          const found = monsters.find((m) => m.id === id);
-          setMonster(found || null);
-        }
-      } catch (err) {
-        console.error("Error al cargar monstruo:", err);
+    const loadData = async () => {
+      if (!id) {
+        router.replace("/Gallery");
+        return null;
       }
+      const monsterId = Array.isArray(id) ? id[0] : id;
+      const m = await getMonsterById(monsterId as string);
+      if (!m) {
+        router.replace("/Gallery");
+        return null;
+      }
+      setMonster(m);
+      const path = await getMonsterImagePath(m.id);
+      setImgPath(path);
     };
-    loadMonster();
+    loadData();
   }, [id]);
 
-  if (!monster) {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.header}>Monstruo no encontrado</Text>
-      </View>
-    );
-  }
+  if (!monster) return null;
 
   return (
-    <View style={styles.container}>
+    <AppLayout title="Ficha de Monstruo" showBack>
+
+      <Image
+        source={ imgPath ? { uri: imgPath } : require("../assets/images/default_card.png") }
+        style={styles.bigImageMonster}
+      />
       <Text style={styles.header}>{monster.nombre}</Text>
-      <Image source={{ uri: monster.imagen }} style={styles.image} />
       <Text style={styles.description}>{monster.descripcion}</Text>
 
       <TouchableOpacity
-        style={styles.button}
-        onPress={() => router.push(`/Fight?id=${monster.id}`)}
-      >
-        <Text style={styles.buttonText}>⚔️ Luchar</Text>
+        style={styles.btnAccion}
+        onPress={() => router.push(`/Gallery`)}>
+        <Text style={styles.btnText}>📦 Exportar</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={[styles.button, { backgroundColor: "#6a5acd" }]}
-        onPress={() => router.push(`/Breed?id=${monster.id}`)}
-      >
-        <Text style={styles.buttonText}>💞 Cruce</Text>
+        style={styles.btnAccion}
+        onPress={() => router.push(`./Fight/${monster.id}`)}>
+        <Text style={styles.btnText}>⚔️ Luchar</Text>
       </TouchableOpacity>
-    </View>
+
+      <TouchableOpacity
+        style={styles.btnAccion}
+        onPress={() => {/* lógica para eliminar */}}>
+        <Text style={styles.btnText}>🗑️ Eliminar</Text>
+      </TouchableOpacity>
+
+      <View style={styles.twoLabels}>
+        <View style={styles.oneLabels}>
+          <Text style={styles.miniText}>{monster.descripcion}</Text>
+          <TouchableOpacity onPress={() => {/* copiar descripción */}}>
+            <Text style={styles.btnText}>Copiar</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.oneLabels}>
+          <Text style={styles.miniText}>{monster.prompt_img}</Text>
+          <TouchableOpacity onPress={() => {/* copiar prompt imagen */}}>
+            <Text style={styles.btnText}>Copiar</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+
+    </AppLayout>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 20,
-  },
-  header: {
-    fontSize: 22,
-    fontWeight: "bold",
-    marginBottom: 10,
-  },
-  image: {
-    width: 250,
-    height: 250,
-    borderRadius: 10,
-    marginBottom: 15,
-  },
-  description: {
-    fontSize: 16,
-    textAlign: "center",
-    marginBottom: 20,
-  },
-  button: {
-    backgroundColor: "#ff6347",
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    borderRadius: 8,
-    marginVertical: 6,
-  },
-  buttonText: {
-    color: "white",
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-});
