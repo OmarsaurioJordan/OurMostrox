@@ -1,7 +1,10 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
-import { Image, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
+import {
+  Alert, Image, ScrollView, Text, TextInput,
+  TouchableOpacity, View
+} from "react-native";
 import AppLayout from "../components/AppLayout";
 import { Monster } from "../data/Monster";
 import { PARAMETROS, ParamOption } from "../data/parametros";
@@ -9,6 +12,7 @@ import { styles } from "../data/styles";
 
 // generados de id simple
 const generateId = () => Date.now().toString();
+const MAX_NAME = 20;
 
 export default function Create() {
   const [nombre, setNombre] = useState("");
@@ -27,16 +31,20 @@ export default function Create() {
 
   const saveMonster = async () => {
     if (!nombre) {
-      alert("Ponle un nombre al monstruo");
-      return;
+      Alert.alert("Adevertencia", "Ponle un nombre al monstruo");
+      return null;
+    }
+    if (nombre.length > MAX_NAME) {
+      Alert.alert("Advertencia", "El nombre tiene demasiados caracteres");
+      return null;
     }
     const newMonster: Monster = {
       id: generateId(),
       nombre,
       genero,
       descripcion: "",
-      parametros,
-      imagen: "",
+      prompt_img: "",
+      parametros
     };
     try {
       const json = await AsyncStorage.getItem("monsters");
@@ -78,6 +86,7 @@ export default function Create() {
           style={styles.inputTxt}
           placeholder="Ej: Freddy Krugger"
           placeholderTextColor="#c42727ff"
+          maxLength={MAX_NAME}
         />
       </View>
 

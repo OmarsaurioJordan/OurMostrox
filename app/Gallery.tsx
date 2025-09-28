@@ -1,10 +1,10 @@
 import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { FlatList, Text, TouchableOpacity } from "react-native";
+import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import AppLayout from "../components/AppLayout";
 import { MonsterCard } from "../components/monster_card";
 import { Monster } from "../data/Monster";
-import { getMonsters } from "../data/monster_service";
+import { getMonsters, handleImport, saveMonster } from "../data/monster_service";
 import { styles } from "../data/styles";
 
 export default function Gallery() {
@@ -32,12 +32,27 @@ export default function Gallery() {
         contentContainerStyle={styles.monsterList}
       />
 
-      <TouchableOpacity
-        style={styles.btnAccion}
-        onPress={() => router.push("/Create")}
-      >
-        <Text style={styles.btnText}>Crear Monstruo</Text>
-      </TouchableOpacity>
+      <View style={styles.row}>
+        <TouchableOpacity
+          style={styles.btnRow}
+          onPress={async () => {
+            const monster = await handleImport();
+            if (monster) {
+              await saveMonster(monster);
+              router.push(`/Monster/${monster.id}`);
+            }
+          }}>
+          <Text style={styles.btnText}>Importar</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.btnRow}
+          onPress={() => router.push("/Create")}
+        >
+          <Text style={styles.btnText}>Crear</Text>
+        </TouchableOpacity>
+      </View>
+
     </AppLayout>
   );
 }

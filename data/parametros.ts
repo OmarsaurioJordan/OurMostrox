@@ -1,3 +1,8 @@
+export const TITULOS: string[] = [
+    "Cuerpo", "Piernas", "Cabeza", "Sobre-cabeza", "Vestuario", "Arma", "Herramienta",
+    "Cobertura", "Espalda", "Poder", "Habilidad", "Extra", "Emoción"
+];
+
 export type ParamOption = {
   id: number;
   nombre: string;

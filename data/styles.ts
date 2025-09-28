@@ -36,8 +36,8 @@ export const styles = StyleSheet.create({
         color: "#fff"
     },
     mainImage: {
-        width: "95%",
-        height: 300,
+        height: "50%",
+        aspectRatio: 4 / 5,
         resizeMode: "cover",
         marginBottom: 20,
         borderRadius: 32
@@ -73,8 +73,9 @@ export const styles = StyleSheet.create({
         alignItems: "center"
     },
     monsterImage: {
-        width: 120,
-        height: 4/5,
+        height: 150,
+        aspectRatio: 4 / 5,
+        resizeMode: "cover",
         borderRadius: 8,
         marginBottom: 8
     },
@@ -93,7 +94,7 @@ export const styles = StyleSheet.create({
         color: "#fff",
         textAlign: "center",
         fontSize: 14,
-        padding: 40
+        padding: 30
     },
     inputLabel: {
         fontSize: 18,
@@ -176,30 +177,47 @@ export const styles = StyleSheet.create({
         resizeMode: "contain",
         alignSelf: "center"
     },
-    bigImageMonster: {
-        width: "90%",
-        height: 300,
+    description: {
+        flex: 1,
+        fontSize: 16,
+        color: "#fff",
+        textAlign: "center",
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    manyLabels: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        padding: 20,
+        margin: 20,
+        gap: 25
+    },
+    miniFondo: {
+        marginTop: 1,
+        padding: 1,
+        borderRadius: 15,
+        backgroundColor: "#b96565ff",
+        alignItems: "center"
+    },
+    miniBtn: {
+        fontSize: 16,
+        color: "#fff",
+        textAlign: "center",
+        maxWidth: "60%"
+    },
+    mainMonsterImage: {
+        height: "35%",
+        aspectRatio: 4 / 5,
         resizeMode: "cover",
         marginBottom: 20,
         borderRadius: 32
     },
-    description: {
-        fontSize: 16,
-        color: "#fff",
-        textAlign: "center"
-    },
-    twoLabels: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        marginTop: 16
-    },
-    oneLabels: {
-        flex: 1,
-        marginRight: 8
-    },
-    miniText: {
-        fontSize: 10,
-        color: "#fff",
-        textAlign: "center"
+    btnRow: {
+        marginTop: 15,
+        padding: 15,
+        borderRadius: 15,
+        backgroundColor: "#9e5b34ff",
+        alignItems: "center",
+        flex:1
     }
 })

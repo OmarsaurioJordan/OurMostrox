@@ -9,16 +9,13 @@ Como trabajo futuro, se plantea un módulo de mezcla / reproducción de monstruo
 [Expo documentation](https://docs.expo.dev/)
 
 ```bash
-npx expo start
+npx expo start -c
 ```
 
 Tareas:
 
-- visualización completa de ficha de monstruo en galería, imágen por defecto
-- visualización completa del monstruo, con imágen por defecto y descripción
-- visualización del monstruo incluye código Qr para retadores
-- destrucción de un monstruo desde su visualización completa
-- creación de la descripción del monstruo mediante IA y API
+- creación de la descripción del monstruo mediante IA y API (quedé haciendo prompts.ts API)
 - creación de la imágen del monstruo mediante IA y API, a partir de su descripción
 - pre enfrentamiento de monstruos, leyendo datos del Qr y eligiendo mapa al azar
 - enfrentamiento de monstruos con IA y API, entrega de narrativa
+- mejorar navegación go back.
