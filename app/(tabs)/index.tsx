@@ -59,7 +59,7 @@ export default function Home() {
         {/* boton galeria */}
         <TouchableOpacity
           style={styles.btnAccion}
-          onPress={() => router.push("/Gallery")}
+          onPress={() => router.replace("/Gallery")}
         >
           <Text style={styles.btnText}>Ver Galería</Text>
         </TouchableOpacity>

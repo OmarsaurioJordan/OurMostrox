@@ -1,14 +1,15 @@
 import * as Clipboard from "expo-clipboard";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { Alert, Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import {
+  ActivityIndicator, Alert, Image, ScrollView, Text, TouchableOpacity, View
+} from "react-native";
 import AppLayout from "../../components/AppLayout";
 import { Monster } from "../../data/Monster";
 import {
-  buildMonsterPrompt, deleteMonster,
-  exportMonster,
-  getMonsterById, getMonsterImagePath
+  buildMonsterPrompt, deleteMonster, exportMonster, getMonsterById, getMonsterImagePath
 } from "../../data/monster_service";
+import { fetchMonsterDescription } from "../../data/prompts";
 import { styles } from "../../data/styles";
 
 export default function MonsterDetail() {
@@ -17,6 +18,7 @@ export default function MonsterDetail() {
   const [monster, setMonster] = useState<Monster | null>(null);
   const [imgPath, setImgPath] = useState<string | null>(null);
   const [monsterPrompt, setMonsterPrompt] = useState<string>("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const loadData = async () => {
@@ -35,6 +37,17 @@ export default function MonsterDetail() {
       setMonsterPrompt(prompt);
       const path = await getMonsterImagePath(m.id);
       setImgPath(path);
+      // tratar de actualizar la descripcion creandola con la IA
+      if (m.descripcion === "") {
+        setLoading(true);
+        const updated = await fetchMonsterDescription(m);
+        setLoading(false);
+        if (updated) {
+          setTimeout(() => {
+            router.replace(`/Monster/${m.id}`);
+          }, 1000);
+        }
+      }
     };
     loadData();
   }, [id]);
@@ -43,14 +56,19 @@ export default function MonsterDetail() {
 
   return (
     <AppLayout title="Ficha de Monstruo" showBack>
-      <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent}>
-      <View style={styles.mainContent}>
 
       <Image
         source={ imgPath ? { uri: imgPath } : require("../../assets/images/default_card.png") }
         style={styles.mainMonsterImage}
       />
+
+      <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent}>
+      <View style={styles.mainContent}>
+
       <Text style={styles.title}>{monster.nombre}</Text>
+      {loading && (
+        <ActivityIndicator size="large" color="#cfcc14ff" />
+      )}
       <Text style={styles.description}>{monster.descripcion !== "" ?
         monster.descripcion : "La descripción no ha sido generada aún mediante IA, debes esperar a que suceda, siempre que la API key cuente con tokens..."}</Text>
 
@@ -96,7 +114,7 @@ export default function MonsterDetail() {
 
         <TouchableOpacity
           style={styles.btnAccion}
-          onPress={() => router.push(`./Fight/${monster.id}`)}>
+          onPress={() => router.replace(`../Fight/${monster.id}`)}>
           <Text style={styles.btnText}>Luchar</Text>
         </TouchableOpacity>
       </View>

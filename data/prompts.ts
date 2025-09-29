@@ -1,13 +1,40 @@
 import { Mistral } from "@mistralai/mistralai";
-import { loadApiKeys, ApiKeys } from "./api_keys";
+import { ApiKeys, loadApiKeys } from "./api_keys";
 import { Monster } from "./Monster";
-import { saveMonster } from "./monster_service";
+import { buildMonsterPrompt, saveMonster } from "./monster_service";
 
-const PROMISES = new Map<string, Promise<string>>();
+const PROMISES = new Map<string, Promise<boolean>>();
+const DELAY_WAIT_MS = 60000; // milisegundos que espera al servidor
 
-export async function fetchMonsterDescription(monster: Monster): Promise<string | null> {
+function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(() => reject(new Error("Timeout")), ms);
+    promise
+      .then((res) => {
+        clearTimeout(timer);
+        resolve(res);
+      })
+      .catch((err) => {
+        clearTimeout(timer);
+        reject(err);
+      });
+  });
+}
+
+function limpiaJSON(texto: string): string {
+  let raw = texto.replace(/```json|```/g, "").trim();
+  raw = raw.replace(/```|```/g, "").trim();
+  raw = raw.replace(/{\s+/g, "{").replace("\n{", "{");
+  raw = raw.replace(/\s+}/g, "}").replace("}\n", "}");
+  raw = raw.replace(/",[^"]*"/g, '","');
+  raw = raw.replace("\n\n", "\n").replace("\n\n", "\n").replace("\n\n", "\n");
+  raw = raw.replace("\n", "\\n");
+  return raw;
+}
+
+export async function fetchMonsterDescription(monster: Monster): Promise<boolean> {
   if (monster.descripcion !== "") {
-    return null;
+    return false;
   }
   // si ya hay promesa corriendo para este monstruo, reusar
   if (PROMISES.has(monster.id)) {
@@ -16,27 +43,47 @@ export async function fetchMonsterDescription(monster: Monster): Promise<string 
   const promise = (async () => {
     const apiKey: ApiKeys | null = await loadApiKeys();
     if (!apiKey) {
-      throw new Error("No hay API Key configurada");
+      return false;
     }
-    const client = new Mistral({ apiKey.apiKeyTxt });
+    const client = new Mistral({ apiKey: apiKey.apiKeyTxt });
     const model = "mistral-large-latest";
-
-    const prompt = monster.prompt_img;
-
-    const chatResponse = await client.chat.complete({
-      model,
-      messages: [{ role: "user", content: prompt }],
-    });
-
-    const desc = chatResponse.choices[0].message.content;
-
-    // actualizar y guardar monstruo con descripción
-    monster.descripcion = desc;
-    await saveMonster(monster);
-
-    PROMISES.delete(monster.id); // limpiar cache
-
-    return desc;
+    const prompt = await buildMonsterPrompt(monster);
+    try {
+      const chatResponse = await withTimeout(
+        client.chat.complete({
+          model, messages: [{ role: "user", content: prompt }],
+        }),
+        DELAY_WAIT_MS
+      );
+      const message = chatResponse?.choices?.[0]?.message;
+      if (!message || typeof message.content !== "string") {
+        console.error("Respuesta Mistral inválida");
+        return false;
+      }
+      let raw = limpiaJSON(message.content);
+      console.log("Mistral dice: ", raw);
+      // actualizar y guardar monstruo con descripción
+      let parsed;
+      try {
+        parsed = JSON.parse(raw);
+      }
+      catch (e) {
+        console.error("no se pudo parsear: ", e);
+        console.error("no se pudo parsear json: ", raw);
+        return false;
+      }
+      monster.descripcion = parsed.txt;
+      monster.prompt_img = parsed.img;
+      await saveMonster(monster);
+      return true;
+    }
+    catch (err) {
+      console.warn("Error timeout de Mistral: ", err);
+      return false;
+    }
+    finally {
+      PROMISES.delete(monster.id);
+    }
   })();
   PROMISES.set(monster.id, promise);
   return promise;
@@ -80,10 +127,11 @@ variaciónes narrativas a pesar de que tengan la misma característica.
 - renderizado estilizado, alto contraste, alta definición.
 - debe tener relación de aspecto 4:5.
 ---
-Los resultados serán entregados en el siguiente formato:
-
-txt = ["aquí el resultado 1"]
-img = ["aquí el resultado 2"]
-
-Sin formato markdown y sin comentarios extra, nada de
-\"quieres que ahora te haga...\" o \"aquí tengo tus resultados...\"`;
+## Los resultados serán entregados con las siguientes condiciónes:
+- No formato markdown, nada de \`\`\`, No **, No subrrayado, No itálica.
+- No comentarios extra, nada de \"quieres que ahora te haga...\" o \"aquí tengo tus resultados...\".
+- en el siguiente formato JSON válido:
+{
+  "txt": "aquí el resultado 1",
+  "img": "aquí el resultado 2"
+}`;

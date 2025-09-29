@@ -10,6 +10,29 @@ export type ParamOption = {
   descripcion: string;
 };
 
+export const TERRENOS: ParamOption[] = [
+    { id: 0, nombre: "Llanura", imagen: require("../assets/images/caracteristicas/terreno0.png"),
+        descripcion: "terreno plano y firme, con pasto bajo, sol tenue, viento suave, sin objetos ni obstáculos, es como un gran terreno libre y despejado" },
+    { id: 1, nombre: "Ciudad", imagen: require("../assets/images/caracteristicas/terreno1.png"),
+        descripcion: "es un espacio urbano diurno, muy concurrido, es una zona central rodeada de edificaciónes comerciales, tiene muchos puestos de venta en las calles, hay vitrinas de vidrio de exhibición, hay muchas personas caminando por el lugar, muchos carros, motos y camiónes pasando lentamente a causa del lento tráfico" },
+    { id: 2, nombre: "Rio", imagen: require("../assets/images/caracteristicas/terreno2.png"),
+        descripcion: "es un rio de tamaño mediano, donde el agua llega a la doilla o cadera, el agua fluye con corriente fuerte, hay muchísimas rocas de todos los tamaños, a los lados la vegetación es espesa, el sol ilumina tenuemente, está lloviendo suavemente, por lo que el ambiente es en general muy húmedo y resbaladizo" },
+    { id: 3, nombre: "Casa", imagen: require("../assets/images/caracteristicas/terreno3.png"),
+        descripcion: "espacio cerrado y reducido, tiene habitaciónes, pasillos, sala, cocina, comedor, hay puertas de madera, muchos objetos alrrededor como sillas, ventiladores, computador, televisor, muebles, camas, lámparas, objetos de aseo, hay iluminación artificial por bombillos" },
+    { id: 4, nombre: "Edificio", imagen: require("../assets/images/caracteristicas/terreno4.png"),
+        descripcion: "zona alta de la ciudad, techos y azoteas no muy amplias, andamios, escaleras exteriores, cajónes de aires acondicionados, es de día, hay obras de construcción con bigas descubiertas, en general son lugares altos con grandes caídas alrrededor, y muy abajo son callejones" },
+    { id: 5, nombre: "Desierto", imagen: require("../assets/images/caracteristicas/terreno5.png"),
+        descripcion: "un lugar con colinas arenosas, sale vapor del suelo, los pasos se hunden en la arena, el sol brilla con gran intensidad calentando el ambiente a altas temperaturas, hay alguna que otra roca en el suelo y alguno que otro cactus con púas" },
+    { id: 6, nombre: "Nevado", imagen: require("../assets/images/caracteristicas/terreno6.png"),
+        descripcion: "un lugar con colinas de nieve, caen copos de nive del cielo, los pasos se hunden en la nieve, hace mucho frío ya que el sol es tenue, hay alguna que otra roca en el suelo y algunos enormes pinos alrededor, también hay bloques de hielo que sobresalen del suelo" },
+    { id: 7, nombre: "Bosque", imagen: require("../assets/images/caracteristicas/terreno7.png"),
+        descripcion: "un lugar lleno de vegetación, altos árboles, enrredaderas, lianas, plantas bajas de hojas grandes, algunas rocas, caminar es complejo por la maleza, es un lugar fresco al que llega poca luz del sol, el terreno es muy irregular" },
+    { id: 8, nombre: "Montaña", imagen: require("../assets/images/caracteristicas/terreno8.png"),
+        descripcion: "terreno muy rocoso e irregular, están en el alto pico de la montaña, hay barrancos y caídas, hay grandes rocas entre las que se puede saltar, paredes de piedra, el sol ilumina suavemete, el viento golpea con fuerza por la altura" },
+    { id: 9, nombre: "Limbo", imagen: require("../assets/images/caracteristicas/terreno9.png"),
+        descripcion: "como un cementerio, está de noche y casi no hay visibilidad, todo es oscuro y lúgubre, cae una niebla densa a causa del fresco nocturno, hay lápidas en el suelo, hay una que otra estatua de mármol, algunos árboles llenos de melena fúngica" }
+];
+
 export const PARAMETROS: ParamOption[][] = [
   [// Cuerpo
     { id: 0, nombre: "Normal", imagen: require("../assets/images/caracteristicas/0_0.png"),

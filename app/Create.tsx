@@ -18,7 +18,6 @@ export default function Create() {
   const [nombre, setNombre] = useState("");
   const [genero, setGenero] = useState<0 | 1>(0);
   const [parametros, setParametros] = useState<number[]>(Array(13).fill(0)); 
-
   const router = useRouter();
 
   const handleSelect = (questionIndex: number, optionId: number) => {
@@ -51,8 +50,7 @@ export default function Create() {
       const monsters = json ? JSON.parse(json) : [];
       monsters.push(newMonster);
       await AsyncStorage.setItem("monsters", JSON.stringify(monsters));
-
-      router.push("/Gallery");
+      router.replace(`/Monster/${newMonster.id}`);
     }
     catch (e) {
       console.error("Error guardando monstruo", e);

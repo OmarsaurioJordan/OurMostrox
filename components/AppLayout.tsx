@@ -1,4 +1,4 @@
-import { useRouter } from "expo-router";
+import { usePathname, useRouter } from "expo-router";
 import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { styles } from "../data/styles";
@@ -11,6 +11,20 @@ type Props = {
 
 export default function AppLayout({ children, title, showBack = false }: Props) {
   const router = useRouter();
+  const pathname = usePathname();
+
+  const handleBack = () => {
+    if (pathname.startsWith("/Gallery")) {
+      router.replace("/(tabs)");
+    }
+    else if (pathname.startsWith("/Monster/") || pathname.startsWith("/Create") ||
+        pathname.startsWith("/Fight/")) {
+      router.replace("/Gallery");
+    }
+    else {
+      router.back();
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -20,7 +34,7 @@ export default function AppLayout({ children, title, showBack = false }: Props) 
       {/* Header */}
       <View style={styles.header}>
         {showBack ? (
-            <TouchableOpacity onPress={() => router.back()} style={styles.btnBack}>
+            <TouchableOpacity onPress={handleBack} style={styles.btnBack}>
                 <Text style={styles.btnText}>⬅️</Text>
             </TouchableOpacity>
         ) : (

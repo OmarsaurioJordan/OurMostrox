@@ -206,11 +206,12 @@ export const styles = StyleSheet.create({
         maxWidth: "60%"
     },
     mainMonsterImage: {
-        height: "35%",
+        height: "45%",
         aspectRatio: 4 / 5,
         resizeMode: "cover",
         marginBottom: 20,
-        borderRadius: 32
+        borderRadius: 32,
+        alignSelf: "center"
     },
     btnRow: {
         marginTop: 15,

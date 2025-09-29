@@ -39,7 +39,7 @@ export default function Gallery() {
             const monster = await handleImport();
             if (monster) {
               await saveMonster(monster);
-              router.push(`/Monster/${monster.id}`);
+              router.replace(`/Monster/${monster.id}`);
             }
           }}>
           <Text style={styles.btnText}>Importar</Text>
@@ -47,7 +47,7 @@ export default function Gallery() {
 
         <TouchableOpacity
           style={styles.btnRow}
-          onPress={() => router.push("/Create")}
+          onPress={() => router.replace("/Create")}
         >
           <Text style={styles.btnText}>Crear</Text>
         </TouchableOpacity>

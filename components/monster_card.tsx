@@ -16,7 +16,7 @@ export function MonsterCard({ item }: { item: Monster }) {
   return (
     <TouchableOpacity
       style={styles.monsterCard}
-      onPress={() => router.push(`/Monster/${item.id}`)}
+      onPress={() => router.replace(`/Monster/${item.id}`)}
     >
       <Image
         source={ imgPath ? { uri: imgPath } : require("../assets/images/default_card.png") }

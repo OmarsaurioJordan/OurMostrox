@@ -49,14 +49,17 @@
     <list default="true" id="878170c3-cc98-4f12-a26c-40ee495c4193" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/(tabs)/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/(tabs)/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Create.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/Create.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Fight/[id].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/Fight/[id].tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Gallery.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/Gallery.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Monster/[id].tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/Monster/[id].tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/AppLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/AppLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/monster_card.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/monster_card.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/monster_service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/data/monster_service.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/parametros.ts" beforeDir="false" afterPath="$PROJECT_DIR$/data/parametros.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/prompts.ts" beforeDir="false" afterPath="$PROJECT_DIR$/data/prompts.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/styles.ts" beforeDir="false" afterPath="$PROJECT_DIR$/data/styles.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

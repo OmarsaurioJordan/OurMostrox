@@ -12,6 +12,20 @@ import { decode as atob } from "base-64";
 
 const STORAGE_KEY = "monsters";
 const EXPORT_DIR = new Directory(Paths.document, "exports");
+const generateId = () => Date.now().toString();
+
+// void monster
+export function getVoidMonster(): Monster {
+  const newMonster: Monster = {
+    id: generateId(),
+    nombre: "",
+    genero: 0,
+    descripcion: "",
+    prompt_img: "",
+    parametros: []
+  };
+  return newMonster;
+}
 
 // cargar
 export async function getMonsters(): Promise<Monster[]> {
@@ -29,12 +43,13 @@ export async function getMonsters(): Promise<Monster[]> {
 export async function saveMonster(newMonster: Monster): Promise<void> {
   try {
     const monsters = await getMonsters();
-    const exists = monsters.some(m => m.id === newMonster.id);
-    if (exists) {
-      Alert.alert("Advertencia", "Ya existe un monstruo con esa ID");
-      return;
+    const index = monsters.findIndex(m => m.id === newMonster.id);
+    if (index !== -1) {
+      monsters[index] = newMonster;
     }
-    monsters.push(newMonster);
+    else {
+      monsters.push(newMonster);
+    }
     await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(monsters));
   }
   catch (e) {

@@ -14,8 +14,10 @@ npx expo start -c
 
 Tareas:
 
-- creación de la descripción del monstruo mediante IA y API (quedé haciendo prompts.ts API)
+- seleccionar los terrenos en Fight (quedé haciendo los dibujos de terrenos)
+- en Fight poder seleccionar a un personaje de la galería o importar uno momentáneo
+- enfrentamiento de monstruos con IA y API, entrega de narrativa y prompt, bloquea botones
+...
 - creación de la imágen del monstruo mediante IA y API, a partir de su descripción
-- pre enfrentamiento de monstruos, leyendo datos del Qr y eligiendo mapa al azar
-- enfrentamiento de monstruos con IA y API, entrega de narrativa
-- mejorar navegación go back.
+- ver el nivel del monstruo según cantidad de características
+- hacer que Android go-back funcione igual que el botón Layout go-back
