@@ -192,6 +192,11 @@ export const styles = StyleSheet.create({
         margin: 20,
         gap: 25
     },
+    menuLabels: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        gap: 25
+    },
     miniFondo: {
         marginTop: 1,
         padding: 1,

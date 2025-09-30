@@ -27,6 +27,14 @@ export function getVoidMonster(): Monster {
   return newMonster;
 }
 
+export function getNivel(monster: Monster): number {
+  let nivel = 1;
+  monster.parametros.forEach((item) => {
+    nivel += item === 0 ? 0 : 1;
+  });
+  return nivel;
+}
+
 // cargar
 export async function getMonsters(): Promise<Monster[]> {
   try {

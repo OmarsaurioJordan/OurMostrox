@@ -7,7 +7,7 @@ import {
 import AppLayout from "../../components/AppLayout";
 import { Monster } from "../../data/Monster";
 import {
-  buildMonsterPrompt, deleteMonster, exportMonster, getMonsterById, getMonsterImagePath
+  buildMonsterPrompt, deleteMonster, exportMonster, getMonsterById, getMonsterImagePath, getNivel
 } from "../../data/monster_service";
 import { fetchMonsterDescription } from "../../data/prompts";
 import { styles } from "../../data/styles";
@@ -18,7 +18,7 @@ export default function MonsterDetail() {
   const [monster, setMonster] = useState<Monster | null>(null);
   const [imgPath, setImgPath] = useState<string | null>(null);
   const [monsterPrompt, setMonsterPrompt] = useState<string>("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const loadData = async () => {
@@ -65,7 +65,19 @@ export default function MonsterDetail() {
       <ScrollView style={styles.scroll} contentContainerStyle={styles.scrollContent}>
       <View style={styles.mainContent}>
 
-      <Text style={styles.title}>{monster.nombre}</Text>
+      <Text
+        style={[styles.monsterTitle, { fontSize: 18 }]}
+      >
+        lvl {getNivel(monster)}
+      </Text>
+      <Text
+        style={styles.title}
+        numberOfLines={2}
+      >
+        {monster.nombre}
+      </Text>
+      <Text>.</Text>
+
       {loading && (
         <ActivityIndicator size="large" color="#cfcc14ff" />
       )}

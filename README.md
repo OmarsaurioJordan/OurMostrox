@@ -10,14 +10,9 @@ Como trabajo futuro, se plantea un módulo de mezcla / reproducción de monstruo
 
 ```bash
 npx expo start -c
+eas build --platform android --profile production
 ```
 
 Tareas:
-
-- seleccionar los terrenos en Fight (quedé haciendo los dibujos de terrenos)
-- en Fight poder seleccionar a un personaje de la galería o importar uno momentáneo
-- enfrentamiento de monstruos con IA y API, entrega de narrativa y prompt, bloquea botones
-...
 - creación de la imágen del monstruo mediante IA y API, a partir de su descripción
-- ver el nivel del monstruo según cantidad de características
 - hacer que Android go-back funcione igual que el botón Layout go-back

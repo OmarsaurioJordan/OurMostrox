@@ -57,12 +57,21 @@ export default function Home() {
         />
 
         {/* boton galeria */}
-        <TouchableOpacity
-          style={styles.btnAccion}
-          onPress={() => router.replace("/Gallery")}
-        >
-          <Text style={styles.btnText}>Ver Galería</Text>
-        </TouchableOpacity>
+        <View style={styles.menuLabels}>
+          <TouchableOpacity
+            style={styles.btnAccion}
+            onPress={() => router.replace("/Historial")}
+          >
+            <Text style={styles.btnText}>Ver Historial</Text>
+          </TouchableOpacity>
+          
+          <TouchableOpacity
+            style={styles.btnAccion}
+            onPress={() => router.replace("/Gallery")}
+          >
+            <Text style={styles.btnText}>Ver Galería</Text>
+          </TouchableOpacity>
+        </View>
 
         {/* creditos */}
         <Text style={styles.credits}>by Omwekiatl 2025</Text>

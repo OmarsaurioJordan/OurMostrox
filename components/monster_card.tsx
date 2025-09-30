@@ -2,10 +2,10 @@ import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { Image, Text, TouchableOpacity } from "react-native";
 import { Monster } from "../data/Monster";
-import { getMonsterImagePath } from "../data/monster_service";
+import { getMonsterImagePath, getNivel } from "../data/monster_service";
 import { styles } from "../data/styles";
 
-export function MonsterCard({ item }: { item: Monster }) {
+export function MonsterCard({ item, disabled = false }: { item: Monster, disabled?: boolean }) {
   const router = useRouter();
   const [imgPath, setImgPath] = useState<string | null>(null);
 
@@ -16,12 +16,18 @@ export function MonsterCard({ item }: { item: Monster }) {
   return (
     <TouchableOpacity
       style={styles.monsterCard}
-      onPress={() => router.replace(`/Monster/${item.id}`)}
+      onPress={() => !disabled && router.replace(`/Monster/${item.id}`)}
+      disabled={disabled}
     >
       <Image
         source={ imgPath ? { uri: imgPath } : require("../assets/images/default_card.png") }
         style={styles.monsterImage}
       />
+      <Text
+        style={[styles.monsterTitle, { fontSize: 16 }]}
+      >
+        lvl {getNivel(item)}
+      </Text>
       <Text
         style={styles.monsterTitle}
         numberOfLines={2}

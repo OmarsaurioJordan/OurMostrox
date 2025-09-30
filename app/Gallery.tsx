@@ -4,7 +4,7 @@ import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import AppLayout from "../components/AppLayout";
 import { MonsterCard } from "../components/monster_card";
 import { Monster } from "../data/Monster";
-import { getMonsters, handleImport, saveMonster } from "../data/monster_service";
+import { getMonsters, handleImport } from "../data/monster_service";
 import { styles } from "../data/styles";
 
 export default function Gallery() {
@@ -38,7 +38,6 @@ export default function Gallery() {
           onPress={async () => {
             const monster = await handleImport();
             if (monster) {
-              await saveMonster(monster);
               router.replace(`/Monster/${monster.id}`);
             }
           }}>

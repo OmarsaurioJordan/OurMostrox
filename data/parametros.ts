@@ -24,7 +24,7 @@ export const TERRENOS: ParamOption[] = [
     { id: 5, nombre: "Desierto", imagen: require("../assets/images/caracteristicas/terreno5.png"),
         descripcion: "un lugar con colinas arenosas, sale vapor del suelo, los pasos se hunden en la arena, el sol brilla con gran intensidad calentando el ambiente a altas temperaturas, hay alguna que otra roca en el suelo y alguno que otro cactus con púas" },
     { id: 6, nombre: "Nevado", imagen: require("../assets/images/caracteristicas/terreno6.png"),
-        descripcion: "un lugar con colinas de nieve, caen copos de nive del cielo, los pasos se hunden en la nieve, hace mucho frío ya que el sol es tenue, hay alguna que otra roca en el suelo y algunos enormes pinos alrededor, también hay bloques de hielo que sobresalen del suelo" },
+        descripcion: "un lugar con colinas de nieve, caen copos de nive del cielo, los pasos se hunden en la nieve, hace mucho frío, una gran y brillante luna ilumina, hay alguna que otra roca en el suelo y algunos enormes pinos alrededor, también hay bloques de hielo que sobresalen del suelo" },
     { id: 7, nombre: "Bosque", imagen: require("../assets/images/caracteristicas/terreno7.png"),
         descripcion: "un lugar lleno de vegetación, altos árboles, enrredaderas, lianas, plantas bajas de hojas grandes, algunas rocas, caminar es complejo por la maleza, es un lugar fresco al que llega poca luz del sol, el terreno es muy irregular" },
     { id: 8, nombre: "Montaña", imagen: require("../assets/images/caracteristicas/terreno8.png"),

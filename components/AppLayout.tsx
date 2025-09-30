@@ -14,11 +14,11 @@ export default function AppLayout({ children, title, showBack = false }: Props) 
   const pathname = usePathname();
 
   const handleBack = () => {
-    if (pathname.startsWith("/Gallery")) {
+    if (pathname.startsWith("/Gallery") || pathname.startsWith("/Historial")) {
       router.replace("/(tabs)");
     }
-    else if (pathname.startsWith("/Monster/") || pathname.startsWith("/Create") ||
-        pathname.startsWith("/Fight/")) {
+    else if (pathname.startsWith("/Monster/") || pathname.startsWith("/Fight/") ||
+        pathname.startsWith("/Create")) {
       router.replace("/Gallery");
     }
     else {
@@ -32,17 +32,21 @@ export default function AppLayout({ children, title, showBack = false }: Props) 
       <Image source={require("../assets/images/banner.png")} style={styles.banner} />
 
       {/* Header */}
-      <View style={styles.header}>
-        {showBack ? (
-            <TouchableOpacity onPress={handleBack} style={styles.btnBack}>
-                <Text style={styles.btnText}>⬅️</Text>
-            </TouchableOpacity>
-        ) : (
-            <View style={{ width: 40 }} />
-        )}
-        <Text style={styles.title}>{title}</Text>
-        <View style={{ width: 40 }} />
-      </View>
+      {title !== "" ? (
+        <View style={styles.header}>
+          {showBack ? (
+              <TouchableOpacity onPress={handleBack} style={styles.btnBack}>
+                  <Text style={styles.btnText}>⬅️</Text>
+              </TouchableOpacity>
+          ) : (
+              <View style={{ width: 40 }} />
+          )}
+          <Text style={styles.title}>{title}</Text>
+          <View style={{ width: 40 }} />
+        </View>
+      ) : (
+        <View></View>
+      )}
 
       {/* Contenido */}
       <View style={styles.content}>{children}</View>
