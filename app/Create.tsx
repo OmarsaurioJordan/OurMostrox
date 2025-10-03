@@ -1,4 +1,3 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
@@ -7,6 +6,7 @@ import {
 } from "react-native";
 import AppLayout from "../components/AppLayout";
 import { Monster } from "../data/Monster";
+import { saveMonster } from "../data/monster_service";
 import { PARAMETROS, ParamOption } from "../data/parametros";
 import { styles } from "../data/styles";
 
@@ -28,7 +28,7 @@ export default function Create() {
     });
   };
 
-  const saveMonster = async () => {
+  const saveNewMonster = async () => {
     if (!nombre) {
       Alert.alert("Adevertencia", "Ponle un nombre al monstruo");
       return null;
@@ -45,16 +45,8 @@ export default function Create() {
       prompt_img: "",
       parametros
     };
-    try {
-      const json = await AsyncStorage.getItem("monsters");
-      const monsters = json ? JSON.parse(json) : [];
-      monsters.push(newMonster);
-      await AsyncStorage.setItem("monsters", JSON.stringify(monsters));
-      router.replace(`/Monster/${newMonster.id}`);
-    }
-    catch (e) {
-      console.error("Error guardando monstruo", e);
-    }
+    await saveMonster(newMonster);
+    router.replace(`/Monster/${newMonster.id}`);
   };
 
   const preguntas = [
@@ -131,7 +123,7 @@ export default function Create() {
 
       </ScrollView>
 
-      <TouchableOpacity style={styles.btnAccion} onPress={saveMonster}>
+      <TouchableOpacity style={styles.btnAccion} onPress={saveNewMonster}>
         <Text style={styles.btnText}>Crear</Text>
       </TouchableOpacity>
       
